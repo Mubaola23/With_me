@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:with_me/src/widgets/app_button.dart';
+import 'package:with_me/src/widgets/spacing.dart';
 import 'package:with_me/src/widgets/status_bar.dart';
 
+import '../../../core/constants/app_images.dart';
 import '../../../core/constants/app_textstyles.dart';
 import '../../../core/constants/colors.dart';
 import '../../../core/constants/dimensions.dart';
@@ -37,21 +39,24 @@ class CloseAlertScreen extends StatelessWidget {
           ),
           backgroundColor: AppColors.primaryColor,
           body: Column(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            // mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                    vertical: 20, horizontal: Dimensions.big),
-                child: IconButton(
-                  icon: const Icon(
-                    Icons.dangerous,
-                    size: 60,
-                    color: AppColors.light,
-                  ),
-                  onPressed: () => Get.back(),
+              Container(
+                // padding: const EdgeInsets.symmetric(
+                //     vertical: 20, horizontal: Dimensions.big),
+                clipBehavior: Clip.antiAlias,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Theme.of(context).cardColor,
+                  border: Border.all(color: Colors.grey, width: 4),
+                ),
+                child: CircleAvatar(
+                  radius: MediaQuery.of(context).size.width / 4,
+                  backgroundImage: const AssetImage(AppImages.demo),
                 ),
               ),
+              const Spacing.smallHeight(),
               Center(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,

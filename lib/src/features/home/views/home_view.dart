@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:with_me/src/core/constants/app_images.dart';
 import 'package:with_me/src/core/constants/colors.dart';
+import 'package:with_me/src/features/calls/views/calls_screen.dart';
 import 'package:with_me/src/features/dashboard/views/dashboard_screen.dart';
 import 'package:with_me/src/features/meets/views/meets_screen.dart';
 
@@ -12,8 +13,8 @@ class HomeScreenView extends StatelessWidget {
   final List<Widget> _children = [
     const DashBoardScreen(),
     const MeetsScreen(),
-    const Center(child: Text("3")),
-    Center(child: Text("4")),
+    const CallsScreen(),
+    Center(child: const Text("4")),
   ];
 
   final String? email;

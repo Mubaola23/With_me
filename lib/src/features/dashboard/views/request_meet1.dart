@@ -15,6 +15,7 @@ import '../../../core/constants/app_images.dart';
 import '../../../core/constants/app_textstyles.dart';
 import '../../../core/constants/colors.dart';
 import '../../../core/constants/dimensions.dart';
+import 'directions_screen.dart';
 
 class RequestMeet1 extends StatelessWidget {
   const RequestMeet1({Key? key}) : super(key: key);
@@ -211,7 +212,7 @@ class Second extends StatelessWidget {
   Widget build(BuildContext context) {
     final List<Widget>? imageSliders = [
       GestureDetector(
-        onTap: () => Get.toNamed("/closeAlert"),
+        // onTap: () => Get.toNamed("/closeAlert"),
         child: Container(
           clipBehavior: Clip.antiAlias,
           // margin: const EdgeInsets.symmetric(
@@ -438,9 +439,9 @@ class Third extends StatelessWidget {
           children: [
             // Spacer(),
             AppButton(
-              label: "Proceed to Location",
-              // onPressed: () => Get.to(() => const DirectionsScreen()),
-              onPressed: () => controller.continued(),
+              label: "Request Meet",
+              onPressed: () => Get.to(() => const DirectionsScreen()),
+              // onPressed: () => controller.continued(),
             )
           ],
         ),

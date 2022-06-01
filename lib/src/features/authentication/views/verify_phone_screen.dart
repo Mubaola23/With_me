@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:otp_text_field/otp_field.dart';
-import 'package:otp_text_field/otp_field_style.dart';
-import 'package:otp_text_field/style.dart';
+import 'package:with_me/src/core/routes.dart';
 import 'package:with_me/src/widgets/app_button.dart';
 import 'package:with_me/src/widgets/status_bar.dart';
 
@@ -28,49 +26,60 @@ class VerifyPhoneScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "Verify Phone Number",
+                    "Verification Sent",
                     style: heading2(context)
                         .copyWith(color: AppColors.primaryColor),
                   ),
+                  // Text(
+                  //   "Verify Phone Number",
+                  //   style: heading2(context)
+                  //       .copyWith(color: AppColors.primaryColor),
+                  // ),
                   const Spacing.tinyHeight(),
                   Text(
-                    "Please input the verification code sent to your SMS",
+                    'A verification link has been sent to your email.'
+                    ' Please confirm that you want to use this as your account email address.',
                     style: heading4(context),
                   ),
+                  // Text(
+                  //       "Please input the verification code sent to your SMS",
+                  //       style: heading4(context),
+                  //     ),
+                  //
                   const Spacing.bigHeight(),
-                  Text(
-                    "Verification code:",
-                    style:
-                        heading4(context).copyWith(fontWeight: FontWeight.bold),
-                  ),
-                  const Spacing.smallHeight(),
-                  Container(
-                    margin:
-                        const EdgeInsets.symmetric(vertical: Dimensions.big),
-                    // padding: EdgeInsets.symmetric(horizontal: Dimensions.medium),
-                    child: OTPTextField(
-                      length: 4,
-                      width: MediaQuery.of(context).size.width,
-                      fieldWidth: MediaQuery.of(context).size.width / 6,
-                      style: const TextStyle(fontSize: 18),
-                      textFieldAlignment: MainAxisAlignment.spaceAround,
-                      fieldStyle: FieldStyle.box,
-                      onChanged: (pin) {
-                        // changepinNotifier.otpCompleted(pin);
-                        print('process: ' + pin);
-                      },
-                      otpFieldStyle:
-                          OtpFieldStyle(backgroundColor: AppColors.light),
-                      onCompleted: (cpin) {
-                        // changepinNotifier.completeOtp = cpin;
-                        print('Completed: ' + cpin);
-                      },
-                    ),
-                  ),
+                  // Text(
+                  //   "Verification code:",
+                  //   style:
+                  //       heading4(context).copyWith(fontWeight: FontWeight.bold),
+                  // ),
+                  // const Spacing.smallHeight(),
+                  // Container(
+                  //   margin:
+                  //       const EdgeInsets.symmetric(vertical: Dimensions.big),
+                  //   // padding: EdgeInsets.symmetric(horizontal: Dimensions.medium),
+                  //   child: OTPTextField(
+                  //     length: 4,
+                  //     width: MediaQuery.of(context).size.width,
+                  //     fieldWidth: MediaQuery.of(context).size.width / 6,
+                  //     style: const TextStyle(fontSize: 18),
+                  //     textFieldAlignment: MainAxisAlignment.spaceAround,
+                  //     fieldStyle: FieldStyle.box,
+                  //     onChanged: (pin) {
+                  //       // changepinNotifier.otpCompleted(pin);
+                  //       print('process: ' + pin);
+                  //     },
+                  //     otpFieldStyle:
+                  //         OtpFieldStyle(backgroundColor: AppColors.light),
+                  //     onCompleted: (cpin) {
+                  //       // changepinNotifier.completeOtp = cpin;
+                  //       print('Completed: ' + cpin);
+                  //     },
+                  //   ),
+                  // ),
                   const Spacing.largeHeight(),
                   AppButton(
-                    label: "Verify",
-                    onPressed: () => Get.offNamed('/preferenceScreen'),
+                    label: "Proceed",
+                    onPressed: () => Get.offNamed(Routes.login),
                   ),
                 ],
               ),

@@ -21,7 +21,7 @@ class AppTheme {
             primary: AppColors.primaryColor,
             minimumSize: const Size.fromHeight(48),
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(20),
+              borderRadius: BorderRadius.circular(100),
             ),
           ),
         ),

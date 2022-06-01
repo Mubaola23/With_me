@@ -49,11 +49,4 @@ class OnboardingController extends GetxController {
 
     update();
   }
-
-  void signIn() async {
-    // final box = StartupService();
-    //
-    // await box.writeOnboardingViewed();
-    // Get.off(() =>);
-  }
 }

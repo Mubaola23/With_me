@@ -10,7 +10,7 @@ class SplashScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<SplashController>(
-      init: SplashController(),
+      init: SplashController()..decideNavigation(),
       builder: (controller) => SvgPicture.asset(
         AppImages.splashBg,
         height: double.infinity,

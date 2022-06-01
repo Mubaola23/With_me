@@ -1,16 +1,19 @@
 // ignore_for_file: non_constant_identifier_names
 
 import 'package:device_preview/device_preview.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:with_me/src/core/routes.dart';
 import 'package:with_me/src/core/theme.dart';
 import 'package:with_me/src/services/navigation_service.dart';
+import 'package:with_me/src/services/service_locator.dart';
 
 import 'src/features/startup/view/splash.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
 
   runApp(DevicePreview(
       enabled: true,
@@ -29,6 +32,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       enableLog: true,
+      initialBinding: ServicesBinding(),
       useInheritedMediaQuery: true,
       locale: DevicePreview.locale(context),
       builder: DevicePreview.appBuilder,
@@ -39,7 +43,7 @@ class MyApp extends StatelessWidget {
       theme: AppTheme.lightTheme,
       // defaultGlobalState: Get.defaultGlobalState,
       title: 'Flutter Demo',
-      initialRoute: "/",
+      // initialRoute: "/",
       home: const SplashScreen(),
       onGenerateRoute: Routes.generateRoute,
       navigatorKey: NavigationService().navigatorKey,

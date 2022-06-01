@@ -38,7 +38,9 @@ class _MeetsScreenState extends State<MeetsScreen>
       child: SafeArea(
         child: Scaffold(
           floatingActionButton: FloatingActionButton(
-            onPressed: () {},
+            onPressed: () {
+              print(MediaQuery.of(context).size.width);
+            },
             child: const Icon(
               Icons.add,
               color: AppColors.light,
@@ -46,7 +48,7 @@ class _MeetsScreenState extends State<MeetsScreen>
             backgroundColor: AppColors.primaryColor,
           ),
           appBar: PreferredSize(
-            preferredSize: const Size(100, 120),
+            preferredSize: Size(100, MediaQuery.of(context).size.height / 6),
             child: Container(
               padding: const EdgeInsets.only(
                   left: Dimensions.big,
@@ -60,13 +62,13 @@ class _MeetsScreenState extends State<MeetsScreen>
                       style:
                           heading2(context).copyWith(color: AppColors.light)),
                   // const Spacing.largeHeight(),
-                  Spacer(),
+                  const Spacer(),
                   TabBar(
                     // indicatorSize: TabBarIndicatorSize.values[],
                     isScrollable: false,
                     indicatorColor: AppColors.light,
                     controller: _tabController,
-                    labelPadding: EdgeInsets.only(bottom: 13, top: 16),
+                    labelPadding: const EdgeInsets.only(bottom: 13, top: 16),
                     tabs: [
                       Text(
                         "Upcoming",
@@ -127,33 +129,61 @@ class _MeetsScreenState extends State<MeetsScreen>
                     borderRadius: const BorderRadius.all(
                       Radius.circular(10),
                     )),
-                child: ListTile(
-                  leading: const CircleAvatar(
-                    backgroundImage: AssetImage(
-                      AppImages.demo,
-                      // height: 20,
-                    ),
-                  ),
-                  title: const Text(
-                    "Cameron Williamson",
-                  ),
-                  subtitle: Flexible(
-                    flex: 1,
-                    child: Row(
-                      children: const [
-                        Text(
-                          "February 29, 2012 ",
-                          style: TextStyle(color: AppColors.primaryColor),
+                child: MediaQuery.of(context).size.width <= 384
+                    ? ListTile(
+                        isThreeLine: true,
+                        leading: const CircleAvatar(
+                          backgroundImage: AssetImage(
+                            AppImages.demo,
+                            // height: 20,
+                          ),
                         ),
-                        Text("● 6 hours away")
-                      ],
-                    ),
-                  ),
-                  trailing: Icon(
-                    Icons.arrow_forward_ios,
-                    size: responsive20(context),
-                  ),
-                ),
+                        title: const Text(
+                          "Cameron Williamson",
+                        ),
+                        subtitle: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: const [
+                            Text(
+                              "February 29, 2012 ",
+                              style: TextStyle(color: AppColors.primaryColor),
+                            ),
+                            Text("● 6 hours away")
+                          ],
+                        ),
+                        trailing: Icon(
+                          Icons.arrow_forward_ios,
+                          size: responsive20(context),
+                        ),
+                      )
+                    : ListTile(
+                        isThreeLine: true,
+                        leading: const CircleAvatar(
+                          backgroundImage: AssetImage(
+                            AppImages.demo,
+                            // height: 20,
+                          ),
+                        ),
+                        title: const Text(
+                          "Cameron Williamson",
+                        ),
+                        subtitle: Flexible(
+                          flex: 1,
+                          child: Row(
+                            children: const [
+                              Text(
+                                "February 29, 2012 ",
+                                style: TextStyle(color: AppColors.primaryColor),
+                              ),
+                              Text("● 6 hours away")
+                            ],
+                          ),
+                        ),
+                        trailing: Icon(
+                          Icons.arrow_forward_ios,
+                          size: responsive20(context),
+                        ),
+                      ),
               ),
             ),
           )
@@ -186,31 +216,62 @@ class _MeetsScreenState extends State<MeetsScreen>
                     borderRadius: const BorderRadius.all(
                       Radius.circular(10),
                     )),
-                child: ListTile(
-                  onTap: () => Get.to(() => const RequestDisplayScreen()),
-                  leading: const CircleAvatar(
-                    backgroundImage: AssetImage(
-                      AppImages.demo,
-                      // height: 20,
-                    ),
-                  ),
-                  title: const Text(
-                    "Cameron Williamson",
-                  ),
-                  subtitle: Row(
-                    children: const [
-                      Text(
-                        "February 29, 2012 ",
-                        style: TextStyle(color: AppColors.primaryColor),
+                child: MediaQuery.of(context).size.width <= 384
+                    ? ListTile(
+                        onTap: () => Get.to(() => const RequestDisplayScreen()),
+                        isThreeLine: true,
+                        leading: const CircleAvatar(
+                          backgroundImage: AssetImage(
+                            AppImages.demo,
+                            // height: 20,
+                          ),
+                        ),
+                        title: const Text(
+                          "Cameron Williamson",
+                        ),
+                        subtitle: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: const [
+                            Text(
+                              "February 29, 2012 ",
+                              style: TextStyle(color: AppColors.primaryColor),
+                            ),
+                            Text("● 6 hours away")
+                          ],
+                        ),
+                        trailing: Icon(
+                          Icons.arrow_forward_ios,
+                          size: responsive20(context),
+                        ),
+                      )
+                    : ListTile(
+                        isThreeLine: true,
+                        leading: const CircleAvatar(
+                          backgroundImage: AssetImage(
+                            AppImages.demo,
+                            // height: 20,
+                          ),
+                        ),
+                        title: const Text(
+                          "Cameron Williamson",
+                        ),
+                        subtitle: Flexible(
+                          flex: 1,
+                          child: Row(
+                            children: const [
+                              Text(
+                                "February 29, 2012 ",
+                                style: TextStyle(color: AppColors.primaryColor),
+                              ),
+                              Text("● 6 hours away")
+                            ],
+                          ),
+                        ),
+                        trailing: Icon(
+                          Icons.arrow_forward_ios,
+                          size: responsive20(context),
+                        ),
                       ),
-                      Text("● 6 hours away")
-                    ],
-                  ),
-                  trailing: Icon(
-                    Icons.arrow_forward_ios,
-                    size: responsive20(context),
-                  ),
-                ),
               ),
             ),
           )

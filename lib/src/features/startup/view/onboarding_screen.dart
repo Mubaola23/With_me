@@ -2,9 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:with_me/src/core/constants/app_images.dart';
 import 'package:with_me/src/core/constants/colors.dart';
 import 'package:with_me/src/core/constants/dimensions.dart';
+import 'package:with_me/src/services/startup_service.dart';
 import 'package:with_me/src/widgets/app_button.dart';
 import 'package:with_me/src/widgets/spacing.dart';
 import 'package:with_me/src/widgets/status_bar.dart';
@@ -98,7 +100,11 @@ class OnboardingScreen extends StatelessWidget {
                           SizedBox(
                             child: AppButton(
                               label: "Get Started",
-                              onPressed: () => Get.offAllNamed("/signup"),
+                              onPressed: () async {
+                                await GetStorage()
+                                    .write("onboardingViewed", true);
+                                Get.offAllNamed("/signup");
+                              },
                             ),
                             width: 200,
                           ),
@@ -111,6 +117,9 @@ class OnboardingScreen extends StatelessWidget {
                                   TextSpan(
                                       recognizer: TapGestureRecognizer()
                                         ..onTap = () async {
+                                          await Get.find<StartupService>()
+                                              .writeOnboardingViewed();
+
                                           Get.offAllNamed("/login");
                                         },
                                       text: "Login",

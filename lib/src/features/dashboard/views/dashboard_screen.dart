@@ -3,8 +3,11 @@ import 'dart:ui';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:with_me/src/core/constants/app_images.dart';
 import 'package:with_me/src/core/constants/dimensions.dart';
+import 'package:with_me/src/core/utilities/base_change_notifier.dart';
+import 'package:with_me/src/features/dashboard/controller/dashboard_controller.dart';
 import 'package:with_me/src/widgets/status_bar.dart';
 
 import '../../../core/constants/app_textstyles.dart';
@@ -290,95 +293,106 @@ class DashBoardScreen extends StatelessWidget {
       ),
     ];
     return StatusBar(
-      child: SafeArea(
-        child: Scaffold(
-          body: Padding(
-            padding: const EdgeInsets.symmetric(
-              vertical: Dimensions.big,
-            ),
-            child: Column(
-              children: [
-                _header(context),
-                const Spacing.smallHeight(),
-                Expanded(
-                  child: SingleChildScrollView(
-                    physics: const BouncingScrollPhysics(),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Spacing.largeHeight(),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: Dimensions.big),
-                          child: Text(
-                            "Recent Activity",
-                            style: heading2(context)
-                                .copyWith(color: AppColors.primaryColor),
-                          ),
-                        ),
-                        const Spacing.smallHeight(),
-                        Responsive.isMobile(context)
-                            ? SizedBox(
-                                height: 120,
-                                width: double.infinity,
-                                child: ListView.builder(
-                                  shrinkWrap: true,
-                                  scrollDirection: Axis.horizontal,
-                                  itemCount: 6,
-                                  physics: const BouncingScrollPhysics(),
-                                  itemBuilder: (context, index) =>
-                                      _recentActivity1(context),
-                                ),
-                              )
-                            : GridView.builder(
-                                itemCount: 8,
-                                shrinkWrap: true,
-                                physics: const NeverScrollableScrollPhysics(),
-                                keyboardDismissBehavior:
-                                    ScrollViewKeyboardDismissBehavior.onDrag,
-                                gridDelegate:
-                                    const SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount: 4,
-                                  // childAspectRatio: 12 / 8,
-                                  mainAxisSpacing: Dimensions.big,
-                                  crossAxisSpacing: Dimensions.big,
-                                ),
-                                itemBuilder: (context, index) =>
-                                    Expanded(child: _recentActivity2(context)),
-                              ),
-                        const Spacing.largeHeight(),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: Dimensions.big),
-                          child: Text(
-                            "Friends close to you",
-                            style: heading2(context)
-                                .copyWith(color: AppColors.primaryColor),
-                          ),
-                        ),
-                        const Spacing.smallHeight(),
-                        CarouselSlider(
-                          items: imageSliders,
-                          options: CarouselOptions(
-                            autoPlay: true,
-                            enlargeCenterPage: true,
-                            viewportFraction: 0.7,
-                            aspectRatio: 1,
-                            initialPage: 1,
-                            // onPageChanged: (index, _) => context
-                            //     .read(dashboardScreenNotifier)
-                            //     .visibleCarousel(index)),
-                          ),
-                        ),
-                      ],
-                    ),
+      child: GetBuilder<DashboardController>(
+          init: DashboardController(),
+          builder: (controller) {
+            return SafeArea(
+              child: Scaffold(
+                body: Padding(
+                  padding: const EdgeInsets.symmetric(
+                    vertical: Dimensions.big,
                   ),
+                  child: controller.state == AppState.loading
+                      ? const Center(child: CircularProgressIndicator())
+                      : Column(
+                          children: [
+                            _header(context, controller.appUser!.firstName),
+                            const Spacing.smallHeight(),
+                            Expanded(
+                              child: SingleChildScrollView(
+                                physics: const BouncingScrollPhysics(),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    const Spacing.largeHeight(),
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: Dimensions.big),
+                                      child: Text(
+                                        "Recent Activity",
+                                        style: heading2(context).copyWith(
+                                            color: AppColors.primaryColor),
+                                      ),
+                                    ),
+                                    const Spacing.smallHeight(),
+                                    Responsive.isMobile(context)
+                                        ? SizedBox(
+                                            height: 120,
+                                            width: double.infinity,
+                                            child: ListView.builder(
+                                              shrinkWrap: true,
+                                              scrollDirection: Axis.horizontal,
+                                              itemCount: 6,
+                                              physics:
+                                                  const BouncingScrollPhysics(),
+                                              itemBuilder: (context, index) =>
+                                                  _recentActivity1(context),
+                                            ),
+                                          )
+                                        : GridView.builder(
+                                            itemCount: 8,
+                                            shrinkWrap: true,
+                                            physics:
+                                                const NeverScrollableScrollPhysics(),
+                                            keyboardDismissBehavior:
+                                                ScrollViewKeyboardDismissBehavior
+                                                    .onDrag,
+                                            gridDelegate:
+                                                const SliverGridDelegateWithFixedCrossAxisCount(
+                                              crossAxisCount: 4,
+                                              // childAspectRatio: 12 / 8,
+                                              mainAxisSpacing: Dimensions.big,
+                                              crossAxisSpacing: Dimensions.big,
+                                            ),
+                                            itemBuilder: (context, index) =>
+                                                Expanded(
+                                                    child: _recentActivity2(
+                                                        context)),
+                                          ),
+                                    const Spacing.largeHeight(),
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: Dimensions.big),
+                                      child: Text(
+                                        "Friends close to you",
+                                        style: heading2(context).copyWith(
+                                            color: AppColors.primaryColor),
+                                      ),
+                                    ),
+                                    const Spacing.smallHeight(),
+                                    CarouselSlider(
+                                      items: imageSliders,
+                                      options: CarouselOptions(
+                                        autoPlay: true,
+                                        enlargeCenterPage: true,
+                                        viewportFraction: 0.7,
+                                        aspectRatio: 1,
+                                        initialPage: 1,
+                                        // onPageChanged: (index, _) => context
+                                        //     .read(dashboardScreenNotifier)
+                                        //     .visibleCarousel(index)),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                 ),
-              ],
-            ),
-          ),
-        ),
-      ),
+              ),
+            );
+          }),
     );
   }
 
@@ -483,7 +497,7 @@ class DashBoardScreen extends StatelessWidget {
     );
   }
 
-  _header(BuildContext context) {
+  _header(BuildContext context, String name) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: Dimensions.big),
       child: Column(
@@ -502,7 +516,7 @@ class DashBoardScreen extends StatelessWidget {
                   ),
                   const Spacing.tinyHeight(),
                   Text(
-                    "David",
+                    name,
                     style: heading1(context),
                   ),
                 ],
@@ -546,15 +560,38 @@ class DashBoardScreen extends StatelessWidget {
                   ),
                 ],
               ),
-              Text(
-                "View Map",
-                style: heading4(context).copyWith(
-                    color: AppColors.primaryColor, fontWeight: FontWeight.bold),
+              TextButton(
+                onPressed: () => Get.to(() => ViewOnMap()),
+                child: Text(
+                  "View Map",
+                  style: heading4(context).copyWith(
+                      color: AppColors.primaryColor,
+                      fontWeight: FontWeight.bold),
+                ),
               ),
             ],
           ),
         ],
       ),
     );
+  }
+}
+
+class ViewOnMap extends StatelessWidget {
+  const ViewOnMap({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return GetBuilder<DashboardController>(
+        init: DashboardController(),
+        builder: (controller) {
+          return GoogleMap(
+            initialCameraPosition: CameraPosition(
+                target: controller.initialcameraposition, zoom: 15),
+            mapType: MapType.normal,
+            onMapCreated: controller.onMapCreated,
+            myLocationEnabled: true,
+          );
+        });
   }
 }
